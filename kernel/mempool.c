@@ -300,12 +300,12 @@ int k_mem_pool_alloc(struct k_mem_pool *p, struct k_mem_block *block,
 
 	while (1) {
 		ret = pool_alloc(p, block, size);
-
+		
 		/* [Sanechips] When race condition causes failure, re_alloc. */
 		if (ret == -EAGAIN) {
-                        continue;
-                }
-
+			continue;
+		}
+		
 		if (ret == 0 || timeout == K_NO_WAIT ||
 		    ret == -EAGAIN || (ret && ret != -ENOMEM)) {
 			return ret;
